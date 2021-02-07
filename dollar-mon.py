@@ -15,6 +15,8 @@ mounthtrigger=3
 timeout=900
 currency_previos=0
 
+
+
 bot_chatID = ''
 bot_token = ''
 
@@ -35,6 +37,19 @@ if environ.get('bot_chatID') is not None:
 
 if environ.get('bot_token') is not None:
     bot_token = str(os.environ['bot_token'])
+
+def get_currency_price_cbrf(today):
+
+    from pycbrf.toolbox import ExchangeRates
+
+    rates = ExchangeRates(today)
+    rates.date_requested  
+    rates.date_received  
+    rates.dates_match  
+
+    return rates['USD'].value 
+
+
 
 def telegram_bot_sendtext(bot_message,bot_token,bot_chatID):
     
@@ -88,7 +103,10 @@ while True:
     dollarhistory_mounth=getdollar_history(mounth,tod)
     maxonweek=dollarhistory['CLOSE'].max()
     maxonmounth=dollarhistory_mounth['CLOSE'].max()
-    currency = float(get_currency_price(DOLLAR_RUB,headers).replace(",", "."))
+    try:
+        currency = float(get_currency_price(DOLLAR_RUB,headers).replace(",", "."))
+    except Exception:
+        currency=float(get_currency_price_cbrf(datetime.today().strftime("%Y-%m-%d")))
     dollar_yesterday=dollarhistory.iloc[-2]['CLOSE']
 
     print("###############################################")
@@ -107,7 +125,7 @@ while True:
 
     if currency_previos == currency:
         print("Dollar/RUB exchange rate has not changed")
-        telegram_bot_sendtext(("Dollar/RUB exchange rate has not changed"+ str(diff)),bot_token,bot_chatID)
+        #telegram_bot_sendtext(("Dollar/RUB exchange rate has not changed"+ str(diff)),bot_token,bot_chatID)
     else:
         if diff >= trigger and mounthdiff >= mounthtrigger:
             print("Dollar/RUB exchange rate has decreased by",diff,"(Mounth MAX trigger)")
