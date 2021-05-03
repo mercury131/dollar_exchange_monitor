@@ -143,14 +143,14 @@ while True:
         mounthdiff=round(currency - maxonmounth)
 
         if diff >= trigger:
-            print("Dollar/RUB exchange rate has increased by",diff,"(Yesterday MAX trigger)")
-            telegram_bot_sendtext(("Dollar/RUB exchange rate has increased by " + str(diff)),bot_token,bot_chatID)
+            print("Dollar/RUB exchange rate has increased by",diff,"(Yesterday MAX trigger)"," from " , str(dollar_yesterday) , ' to ' , str(currency))
+            telegram_bot_sendtext(("Dollar/RUB exchange rate has increased by " + str(diff)," from " , str(dollar_yesterday) , ' to ' , str(currency)),bot_token,bot_chatID)
         elif weekdiff >= weektrigger:
-            print("Dollar/RUB exchange rate has increased by",weekdiff,"(Week MAX trigger)")
-            telegram_bot_sendtext(("Dollar/RUB exchange rate has increased by " + str(weekdiff)),bot_token,bot_chatID)
+            print("Dollar/RUB exchange rate has increased by",weekdiff,"(Week MAX trigger)"," from " , str(maxonweek) , ' to ' , str(currency))
+            telegram_bot_sendtext(("Dollar/RUB exchange rate has increased by " + str(weekdiff)," from " , str(maxonweek) , ' to ' , str(currency)),bot_token,bot_chatID)
         elif mounthdiff >= mounthtrigger:
-            print("Dollar/RUB exchange rate has increased by",mounthdiff,"(Mounth MAX trigger)")
-            telegram_bot_sendtext(("Dollar/RUB exchange rate has increased by "+ str(mounthdiff)),bot_token,bot_chatID)
+            print("Dollar/RUB exchange rate has increased by",mounthdiff,"(Mounth MAX trigger)",  " from " , str(maxonmounth) , ' to ' , str(currency))
+            telegram_bot_sendtext(("Dollar/RUB exchange rate has increased by "+ str(mounthdiff),  " from " , str(maxonmounth) , ' to ' , str(currency)),bot_token,bot_chatID)
 
 
 
